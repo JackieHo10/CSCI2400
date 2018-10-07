@@ -1,0 +1,166 @@
+This is my solution! Hope it help
+int divisor = filter -> getDivisor();
+  
+  int control[3][3];
+
+  for (int i = 0; i < 3; i++) {
+	  for (int j = 0; j < 3; j++) {
+		  control[i][j] = filter -> get(i,j);
+	  }
+  }
+  
+  int heightc = height - 1;
+  int widthc = width - 6;
+  for(int plane = 0; plane < 3; plane++) {
+    for(int row = 1; row < heightc; row++) {
+		int col;
+      for(col = 1; col < widthc; col+=6) {
+		int col_1 = col + 1;
+	    int col_2 = col + 2;
+	    int col_3 = col + 3;
+	    int col_4 = col + 4;
+	    int col_5 = col + 5;
+    
+    int temp1 = 0;
+	int temp2 = 0;
+	int temp3 = 0;
+	int temp4 = 0;
+	int temp5 = 0;
+	int temp6 = 0;
+	
+	for (int i = 0; i < 3; i++) {
+		int row1 = (row - 1) + i;
+	  for (int j = 0; j < 3; j++) {
+		int col1 = (col - 1) + j ;
+		int col2 = (col_1 - 1) + j;
+		int col3 = (col_2 - 1) + j;
+		int col4 = (col_3 - 1) + j;
+		int col5 = (col_4 - 1) + j;
+		int col6 = (col_5 - 1) + j;
+		int control_value = control[i][j];
+		 if (control_value == 0) {} 
+		 else if (control_value != 1) {
+	    temp1 += (input -> color[plane][row1][col1] 
+		* (control_value) );
+		temp2 += (input -> color[plane][row1][col2]
+		* (control_value) );
+		temp3 += (input -> color[plane][row1][col3]
+		* (control_value) );
+		temp4 += (input -> color[plane][row1][col4]
+		* (control_value) ); 
+		temp5 += (input -> color[plane][row1][col5]
+		* (control_value) ); 
+		temp6 += (input -> color[plane][row1][col6]
+		* (control_value) );
+	    }
+	    else {
+		temp1 += (input -> color[plane][row1][col1]);
+		temp2 += (input -> color[plane][row1][col2]);
+		temp3 += (input -> color[plane][row1][col3]);
+		temp4 += (input -> color[plane][row1][col4]);
+		temp5 += (input -> color[plane][row1][col5]);
+		temp6 += (input -> color[plane][row1][col6]);
+	    }	    
+	  }
+   }
+	
+	if (divisor != 1) 
+	{
+		temp1 /= divisor;
+		temp2 /= divisor;
+		temp3 /= divisor;
+		temp4 /= divisor;
+		temp5 /= divisor;
+		temp6 /= divisor;
+	}
+	
+
+	if ( temp1 < 0 ) {
+	  temp1 = 0;
+	}
+	else if ( temp1  > 255 ) { 
+	  temp1 = 255;
+	}
+	
+    
+    if ( temp2 < 0 ) {
+	  temp2 = 0;
+	}
+	else if ( temp2  > 255 ) { 
+	  temp2 = 255;
+	}
+	
+    
+    if ( temp3 < 0 ) {
+	  temp3 = 0;
+	}
+	else if ( temp3  > 255 ) { 
+	  temp3 = 255;
+	}
+	
+    
+    if ( temp4 < 0 ) {
+	  temp4 = 0;
+	}
+	else if ( temp4  > 255 ) { 
+	  temp4 = 255;
+	}
+	
+    
+    if ( temp5 < 0 ) {
+	  temp5 = 0;
+	}
+	else if ( temp5  > 255 ) { 
+	  temp5 = 255;
+	}
+	
+    
+    if ( temp6 < 0 ) {
+	  temp6 = 0;
+	}
+	else if ( temp6  > 255 ) { 
+	  temp6 = 255;
+	}
+	
+	
+	output -> color[plane][row][col] = temp1;
+	output -> color[plane][row][col_1] = temp2;
+	output -> color[plane][row][col_2] = temp3;
+	output -> color[plane][row][col_3] = temp4;
+	output -> color[plane][row][col_4] = temp5;
+	output -> color[plane][row][col_5] = temp6;
+      }
+      
+      int widthk = width -1;
+      for(; col < widthk; col++)
+      {
+		  int temp = 0;
+		for (int i = 0; i < 3; i++) {
+		int row1 = (row - 1) + i;
+	    for (int j = 0; j < 3; j++) {
+		int col1 = (col - 1) + j ;	
+		int control_value = control[i][j];
+		 if (control_value == 0) {} 
+		 else if (control_value != 1) {
+	    temp += (input -> color[plane][row1][col1] 
+		* control_value );
+	     }
+		 else {
+		temp += (input -> color[plane][row1][col1]);
+	      }
+		 }
+		}
+		if (divisor != 1)
+		 {
+			 temp /= divisor;
+		 } 
+		 if ( temp < 0 ) {
+	         temp = 0;
+	         }
+	     else if ( temp  > 255 ) { 
+	         temp = 255;
+	         }
+	output -> color[plane][row][col] = temp;
+	  }
+    }
+  }
